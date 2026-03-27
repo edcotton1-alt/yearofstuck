@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Year of Stuck</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root {
+  --bg: #0c0c0e;
+  --bg-elevated: #141418;
+  --bg-card: #1a1a20;
+  --text: #e8e6e1;
+  --text-muted: #8a8880;
+  --text-dim: #5a5850;
+  --accent: #d4483b;
+  --accent-glow: rgba(212, 72, 59, 0.15);
+  --accent-warm: #e8734a;
+  --gold: #c4a35a;
+  --gold-dim: rgba(196, 163, 90, 0.12);
+  --teal: #4a9e8e;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --max-w: 780px;
+  --max-w-wide: 1000px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 17px;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── HERO ── */.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212, 72, 59, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(196, 163, 90, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Particle canvas */.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}.hero > *:not(.hero-particles) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stuck logo */.stuck-logo {
+  display: inline-block;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.05s ease forwards;
+}.stuck-logo svg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Static / interference dividers */.static-divider {
+  position: relative;
+  height: 32px;
+  overflow: hidden;
+  opacity: 0.35;
+}.static-divider canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}.hero-kicker {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s ease forwards;
+}.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(56px, 10vw, 130px);
+  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 1s 0.4s ease forwards;
+}.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}.hero-sub {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.8vw, 28px);
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.45;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s ease forwards;
+}.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.8s 1s ease forwards;
+}.hero-scroll.line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-dim), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ── SECTION LAYOUT ── */
+section {
+  padding: 100px 24px;
+  position: relative;
+}.container { max-width: var(--max-w); margin: 0 auto; }.container-wide { max-width: var(--max-w-wide); margin: 0 auto; }
+
+/* ── DEFINITION ── */.definition-section {
+  border-top: 1px solid rgba(255,255,255,0.06);
+}.definition-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: start;
+}.definition-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 6px;
+  position: sticky;
+  top: 40px;
+}.definition-body p {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}.definition-body p strong {
+  color: var(--text);
+  font-weight: 500;
+}.definition-body.pullquote {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--text);
+  border-left: 2px solid var(--accent);
+  padding-left: 28px;
+  margin: 48px 0;
+}
+
+/* ── CHART SECTIONS ── */.chart-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}.section-header {
+  text-align: center;
+  margin-bottom: 72px;
+}.section-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}.section-header p {
+  color: var(--text-muted);
+  font-size: 18px;
+  max-width: 520px;
+  margin: 0 auto;
+}.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}.chart-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 32px 28px 24px;
+  position: relative;
+  overflow: hidden;
+}.chart-box.full-width {
+  grid-column: 1 / -1;
+}.chart-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}.chart-headline {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 24px;
+  line-height: 1.3;
+}.chart-canvas-wrap {
+  position: relative;
+  width: 100%;
+}.chart-canvas-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}.chart-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}.chart-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}.chart-source {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  letter-spacing: 0.03em;
+  opacity: 0.6;
+}
+
+/* ── STAT CARDS ── */.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}.stat-card:hover {
+  border-color: rgba(212, 72, 59, 0.3);
+  transform: translateY(-2px);
+}.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}.stat-card:hover::before { opacity: 1; }.stat-number {
+  font-family: var(--serif);
+  font-size: 48px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}.stat-unit {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}.stat-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}.stat-source {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  letter-spacing: 0.05em;
+}
+
+/* ── TIMELINE ── */.timeline-section {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}.timeline {
+  position: relative;
+  padding-left: 48px;
+}.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    var(--accent) 0%, var(--accent-warm) 30%, var(--gold) 60%, var(--accent) 100%
+  );
+  opacity: 0.4;
+}.timeline-item {
+  position: relative;
+  margin-bottom: 64px;
+}.timeline-item:last-child { margin-bottom: 0; }.timeline-dot {
+  position: absolute;
+  left: -48px;
+  top: 8px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}.timeline-item:hover.timeline-dot {
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}.timeline-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}.timeline-label {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 12px;
+}.timeline-text {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 600px;
+}.timeline-text a {
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--text-dim);
+  transition: color 0.2s ease;
+}.timeline-text a:hover { color: var(--accent); }
+
+/* ── COPING ── */.coping-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}.coping-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}.coping-card {
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 36px 32px;
+  transition: border-color 0.3s ease;
+}.coping-card:hover {
+  border-color: rgba(196, 163, 90, 0.3);
+}.coping-card.full-width {
+  grid-column: 1 / -1;
+}.coping-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}.coping-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin-bottom: 14px;
+}.coping-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── EVIDENCE STACK ── */.stack-section {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}.stack-list { counter-reset: stack; }.stack-item {
+  counter-increment: stack;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: start;
+}.stack-item:last-child { border-bottom: none; }.stack-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--accent);
+  line-height: 1;
+  text-align: right;
+  padding-top: 4px;
+}.stack-content h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}.stack-content p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}.stack-content.source-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--text-dim);
+  letter-spacing: 0.05em;
+  transition: color 0.2s ease;
+}.stack-content.source-link:hover { color: var(--accent); }
+
+/* ── CLOSING ── */.closing {
+  padding: 120px 24px 160px;
+  text-align: center;
+  position: relative;
+}.closing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(212, 72, 59, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}.closing blockquote {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-style: italic;
+  line-height: 1.4;
+  max-width: 700px;
+  margin: 0 auto 48px;
+  color: var(--text);
+  position: relative;
+}.closing blockquote::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 32px;
+}.closing-note {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.04);
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+footer a:hover { color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {.definition-grid { grid-template-columns: 1fr; gap: 16px; }.definition-label { position: static; }.stat-grid { grid-template-columns: 1fr; }.charts-row { grid-template-columns: 1fr; }.coping-grid { grid-template-columns: 1fr; }.voices-grid { grid-template-columns: 1fr; }.toil-grid { grid-template-columns: 1fr; }.playbook-step { grid-template-columns: 40px 1fr; }.playbook-step-aside { display: none; }.consumer-cols { grid-template-columns: 1fr; gap: 24px; }.timeline { padding-left: 36px; }.timeline-dot { left: -36px; }
+  section { padding: 72px 20px; }
+}
+
+/* ── VOICES / QUOTES ── */.voices-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}.voices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}.voice-card {
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 36px 32px;
+  position: relative;
+  transition: border-color 0.3s ease;
+}.voice-card:hover {
+  border-color: rgba(212, 72, 59, 0.25);
+}.voice-card.featured {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212,72,59,0.04) 100%);
+  border-color: rgba(212, 72, 59, 0.15);
+}.voice-quote {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 20px;
+  position: relative;
+  padding-left: 20px;
+}.voice-quote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}.voice-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}.voice-role {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}.voice-context {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  line-height: 1.55;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ── TOIL SECTION ── */.toil-section {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}.toil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}.toil-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 36px 32px;
+  text-align: center;
+}.toil-card.full-width {
+  grid-column: 1 / -1;
+}.toil-card.chart-title {
+  margin-bottom: 4px;
+}.toil-card.chart-headline {
+  margin-bottom: 20px;
+}.toil-donut-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}.toil-donut {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}.toil-donut svg {
+  width: 160px;
+  height: 160px;
+}.toil-donut-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}.toil-donut-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  color: var(--text);
+  line-height: 1;
+}.toil-donut-sub {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+  text-transform: uppercase;
+}.toil-donut-caption {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.5;
+  max-width: 180px;
+}.donut-ring {
+  stroke-dashoffset: 440;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+
+/* Labor bars */.labor-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  height: 180px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+}.labor-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 100px;
+}.labor-bar {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  transition: height 1s cubic-bezier(0.22, 1, 0.36, 1);
+  height: 0;
+  position: relative;
+}.labor-bar.animated {
+  /* height set by JS */
+}.labor-bar-val {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--text);
+  text-align: center;
+}.labor-bar-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+/* ── CONSUMER STUCK ── */.seg-tag {
+  display: inline;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}.seg-pressured {
+  background: rgba(212, 72, 59, 0.12);
+  color: #e8634f;
+}.seg-cautious {
+  background: rgba(196, 163, 90, 0.12);
+  color: #d4b85a;
+}.seg-insulated {
+  background: rgba(74, 158, 142, 0.12);
+  color: #5fbaa8;
+}.consumer-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}.consumer-spectrum {
+  position: relative;
+  margin-bottom: 48px;
+}.consumer-bar-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #d4483b 0%, #e8734a 30%, #c4a35a 60%, #4a9e8e 100%);
+  margin-bottom: 40px;
+  opacity: 0.6;
+}.consumer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}.consumer-col {
+  position: relative;
+}.consumer-col-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}.consumer-col-label {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}.consumer-col-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}.consumer-context {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}.consumer-context p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}.consumer-context strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── PLAYBOOK ── */.playbook-section {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}.playbook-steps {
+  position: relative;
+}.playbook-step {
+  display: grid;
+  grid-template-columns: 64px 1fr 260px;
+  align-items: stretch;
+}.playbook-step:nth-child(even) {
+  background: rgba(255,255,255,0.008);
+}.playbook-step-num {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 32px;
+  position: relative;
+}.playbook-step-num::after {
+  content: '';
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255,255,255,0.05);
+}.playbook-step:last-child.playbook-step-num::after { display: none; }.playbook-num-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}.playbook-step:hover.playbook-num-circle {
+  border-color: var(--accent);
+  color: var(--accent);
+}.playbook-step-body {
+  padding: 28px 28px 28px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}.playbook-step:last-child.playbook-step-body { border-bottom: none; }.playbook-step-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}.playbook-step-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}.playbook-step-aside {
+  padding: 28px 24px;
+  border-left: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+}.playbook-step:last-child.playbook-step-aside { border-bottom: none; }.playbook-aside-content {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1.55;
+  opacity: 0.85;
+}.playbook-closing {
+  margin-top: 48px;
+  text-align: center;
+}.playbook-closing p {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ── SCENARIOS ── */.scenarios-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}.scenarios-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}.scenario-card {
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 320px;
+  transition: border-color 0.4s ease;
+}.scenario-card:hover {
+  border-color: rgba(255,255,255,0.12);
+}.scenario-visual {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}.scenario-visual svg {
+  width: 100%;
+  height: auto;
+  max-width: 220px;
+}.scenario-body {
+  padding: 40px 40px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}.scenario-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}.scenario-name {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}.scenario-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: fit-content;
+}.scenario-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}.scenario-evidence {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}.scenario-closing {
+  margin-top: 56px;
+  text-align: center;
+}.scenario-closing-line {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.8vw, 26px);
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.45;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {.scenario-card {
+    grid-template-columns: 1fr;
+  }.scenario-visual {
+    height: 200px;
+    padding: 24px;
+  }.scenario-body {
+    padding: 28px 24px;
+  }.scenario-name {
+    font-size: 26px;
+  }
+}
+
+/* ── SCROLL ANIMATIONS ── */.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SVG CHART ANIMATIONS ── */.chart-line-animated {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 2s ease;
+}.chart-line-animated.drawn {
+  stroke-dashoffset: 0;
+}.chart-bar-animated rect,
+rect.chart-bar-animated {
+  transform-origin: center bottom;
+  transform: scaleY(0);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}.chart-bar-animated.drawn rect,
+rect.chart-bar-animated.drawn {
+  transform: scaleY(1);
+}.chart-fade {
+  opacity: 0;
+  transition: opacity 1s ease 0.5s;
+}.chart-fade.drawn {
+  opacity: 1;
+}.gauge-fill {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+
+.section-transition {
+  max-width: 760px;
+  margin: 0 auto 2.5rem auto;
+  color: var(--text);
+  opacity: 0.9;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <canvas class="hero-particles" id="particles"></canvas>
+  <div class="stuck-logo">
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stuck icon: a circle that can't complete — jammed gear/lock -->
+      <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(212,72,59,0.3)" stroke-width="1.5"/>
+      <path d="M24 4 A20 20 0 1 1 7.03 13" fill="none" stroke="#d4483b" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <!-- Gap / jam mark -->
+      <line x1="10" y1="10" x2="16" y2="16" stroke="#d4483b" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      <line x1="16" y1="10" x2="10" y2="16" stroke="#d4483b" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      <!-- Inner ring -->
+      <circle cx="24" cy="24" r="8" fill="none" stroke="rgba(212,72,59,0.2)" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="24" cy="24" r="3" fill="#d4483b" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="hero-kicker">Spring 2025 – Spring 2026</div>
+  <h1>The Year<br>of <em>Stuck</em></h1>
+  <p class="hero-sub">Not recession. Not recovery. A long holding pattern in which companies protected margins, rationed conviction, and treated expansion as reversible. People kept working, buying, and planning, but with one hand on the brake.</p>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ═══════════ DEFINITION ═══════════ -->
+<section class="definition-section">
+  <div class="container">
+    <div class="definition-grid reveal">
+      <div class="definition-label">Definition</div>
+      <div class="definition-body">
+        <p>"Stuck" does <strong>not</strong> mean recession, collapse, or total paralysis. It means a business community caught in a holding pattern: still operating, still profitable in many cases, still investing in narrow areas—but unwilling to move with full conviction.</p>
+        <p>In practice, "stuck" means <strong>shorter time horizons, softer hiring, narrower capex, more contingency planning, more pricing defensiveness</strong>, and more money flowing only to the "can't-avoid-it" bucket: AI, core infrastructure, or urgent resilience work.</p>
+        <div class="pullquote">
+          A year in which American business kept moving, but stopped making broad, confident commitments.
+        </div>
+        <p>That pattern is visible in CEO surveys, small-business surveys, labor data, and company behavior. The strongest proof is that uncertainty kept showing up not just as a feeling, but as a <strong>brake on decisions</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="static-divider"><canvas class="static-canvas"></canvas></div>
+
+<!-- ═══════════ CHARTS ═══════════ -->
+<section class="chart-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>The Numbers</h2>
+      <p>Not single snapshots. Cumulative patterns: confidence eroding, lines crossing, drag compounding quarter after quarter.</p>
+    </div>
+
+    <!-- Row 1: Convergence chart full-width -->
+    <div class="charts-row">
+      <div class="chart-box full-width reveal" id="chart-convergence">
+        <div class="chart-title">Three Surveys, One Story</div>
+        <div class="chart-headline">Confidence Eroded Everywhere at Once</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg">
+            <line x1="70" y1="30" x2="860" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="70" y1="80" x2="860" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="70" y1="130" x2="860" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="70" y1="180" x2="860" y2="180" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="70" y1="230" x2="860" y2="230" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="64" y="34" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">High</text>
+            <text x="64" y="134" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Neutral</text>
+            <text x="64" y="234" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Low</text>
+            <rect x="70" y="115" width="790" height="30" fill="rgba(255,255,255,0.02)" rx="4"/>
+            <text x="150" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1 '25</text>
+            <text x="290" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q2 '25</text>
+            <text x="430" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Summer '25</text>
+            <text x="570" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q4 '25</text>
+            <text x="710" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1 '26</text>
+            <text x="830" y="258" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Mar '26</text>
+            <!-- BRT CEO Outlook (normalized) -->
+            <path d="M150,53 C220,53 250,137 290,137 C330,137 380,110 430,105 C480,100 530,78 570,75 C610,72 660,68 710,65 C750,62 800,100 830,110"
+                  fill="none" stroke="#d4483b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="chart-line-animated" data-chart="convergence"/>
+            <!-- Conference Board CEO Confidence (normalized) -->
+            <path d="M150,50 C220,50 250,195 290,198 C330,200 380,175 430,170 C480,165 530,155 570,148 C610,141 660,120 710,110 C750,100 800,140 830,145"
+                  fill="none" stroke="#e8734a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="chart-line-animated" data-chart="convergence"/>
+            <!-- NFIB Uncertainty (inverted) -->
+            <path d="M150,80 C220,80 250,195 290,200 C330,205 380,170 430,48 C480,70 530,100 570,100 C610,100 660,70 710,65 C750,60 800,85 830,80"
+                  fill="none" stroke="#c4a35a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8,4" class="chart-line-animated" data-chart="convergence"/>
+            <g class="chart-fade" data-chart="convergence">
+              <circle cx="290" cy="137" r="5" fill="#d4483b" stroke="#1a1a20" stroke-width="2"/>
+              <circle cx="290" cy="198" r="5" fill="#e8734a" stroke="#1a1a20" stroke-width="2"/>
+              <circle cx="830" cy="110" r="4" fill="#d4483b"/>
+              <circle cx="830" cy="145" r="4" fill="#e8734a"/>
+              <circle cx="830" cy="80" r="4" fill="#c4a35a"/>
+            </g>
+            <g class="chart-fade" data-chart="convergence">
+              <rect x="230" y="208" width="120" height="24" rx="5" fill="rgba(212,72,59,0.1)"/>
+              <text x="290" y="224" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="9">Q2 '25: mass drop</text>
+            </g>
+            <g class="chart-fade" data-chart="convergence">
+              <rect x="765" y="148" width="130" height="24" rx="5" fill="rgba(212,72,59,0.1)"/>
+              <text x="830" y="164" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="9">Mar '26: Iran relapse</text>
+            </g>
+            <g class="chart-fade" data-chart="convergence">
+              <rect x="650" y="36" width="120" height="20" rx="4" fill="rgba(74,158,142,0.1)"/>
+              <text x="710" y="50" text-anchor="middle" fill="#4a9e8e" font-family="JetBrains Mono,monospace" font-size="8">Brief thaw Q1 '26</text>
+            </g>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d4483b"></div>BRT CEO Outlook Index</div>
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#e8734a"></div>Conference Board CEO Confidence</div>
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#c4a35a;"></div>NFIB Uncertainty (inverted)</div>
+        </div>
+        <div class="chart-source">Sources: Business Roundtable, The Conference Board, NFIB / Reuters</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Sentiment shift + Capex crossover -->
+    <div class="charts-row">
+      <!-- Sentiment shift before/after -->
+      <div class="chart-box reveal" id="chart-shift">
+        <div class="chart-title">Conference Board Q1 vs Q2 2025</div>
+        <div class="chart-headline">How Fast Sentiment Collapsed</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg">
+            <text x="220" y="20" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">"Conditions worse than 6 months ago"</text>
+            <!-- Q1 bar: 11% = 22px, Q2 bar: 82% = 164px -->
+            <rect x="80" y="35" width="120" height="22" rx="4" fill="#4a9e8e" opacity="0.5" class="chart-fade" data-chart="shift"/>
+            <rect x="240" y="35" width="120" height="164" rx="4" fill="#d4483b" opacity="0.8" class="chart-fade" data-chart="shift"/>
+            <g class="chart-fade" data-chart="shift">
+              <text x="140" y="50" text-anchor="middle" fill="#e8e6e1" font-family="Instrument Serif,serif" font-size="18">11%</text>
+              <text x="140" y="72" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1</text>
+              <text x="300" y="130" text-anchor="middle" fill="#e8e6e1" font-family="Instrument Serif,serif" font-size="32">82%</text>
+              <text x="300" y="150" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="JetBrains Mono,monospace" font-size="9">Q2</text>
+            </g>
+            <g class="chart-fade" data-chart="shift">
+              <path d="M200,50 Q220,75 238,95" fill="none" stroke="#d4483b" stroke-width="1.5" opacity="0.4"/>
+              <text x="228" y="78" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="9">x7.5</text>
+            </g>
+
+            <text x="220" y="225" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">"Expect conditions to worsen"</text>
+            <!-- Q1: 15% = 24px, Q2: 64% = 102px -->
+            <rect x="80" y="238" width="120" height="24" rx="4" fill="#4a9e8e" opacity="0.4" class="chart-fade" data-chart="shift"/>
+            <rect x="240" y="238" width="120" height="102" rx="4" fill="#e8734a" opacity="0.7" class="chart-fade" data-chart="shift"/>
+            <g class="chart-fade" data-chart="shift">
+              <text x="140" y="255" text-anchor="middle" fill="#e8e6e1" font-family="Instrument Serif,serif" font-size="16">15%</text>
+              <text x="140" y="276" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1</text>
+              <text x="300" y="295" text-anchor="middle" fill="#e8e6e1" font-family="Instrument Serif,serif" font-size="24">64%</text>
+              <text x="300" y="312" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="JetBrains Mono,monospace" font-size="9">Q2</text>
+            </g>
+          </svg>
+        </div>
+        <div class="chart-source">Source: The Conference Board CEO Confidence Survey</div>
+      </div>
+
+      <!-- Capex crossover -->
+      <div class="chart-box reveal" id="chart-capex">
+        <div class="chart-title">Conference Board</div>
+        <div class="chart-headline">Capex Plans: The Lines Crossed, Then Slowly Uncrossed</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="30" x2="420" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="70" x2="420" y2="70" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="110" x2="420" y2="110" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="150" x2="420" y2="150" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <text x="44" y="34" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">40%</text>
+            <text x="44" y="74" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">30%</text>
+            <text x="44" y="114" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">20%</text>
+            <text x="44" y="154" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">10%</text>
+            <text x="110" y="192" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1'25</text>
+            <text x="220" y="192" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q2'25</text>
+            <text x="330" y="192" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q4'25</text>
+            <text x="400" y="192" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Q1'26</text>
+            <polyline points="110,57 220,113 330,101 400,50" fill="none" stroke="#4a9e8e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="chart-line-animated" data-chart="capex"/>
+            <polyline points="110,137 220,86 330,110 400,126" fill="none" stroke="#d4483b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="chart-line-animated" data-chart="capex"/>
+            <g class="chart-fade" data-chart="capex">
+              <circle cx="110" cy="57" r="4" fill="#4a9e8e"/>
+              <circle cx="220" cy="113" r="5" fill="#4a9e8e" stroke="#1a1a20" stroke-width="2"/>
+              <circle cx="330" cy="101" r="4" fill="#4a9e8e"/>
+              <circle cx="400" cy="50" r="4" fill="#4a9e8e"/>
+              <circle cx="110" cy="137" r="4" fill="#d4483b"/>
+              <circle cx="220" cy="86" r="5" fill="#d4483b" stroke="#1a1a20" stroke-width="2"/>
+              <circle cx="330" cy="110" r="4" fill="#d4483b"/>
+              <circle cx="400" cy="126" r="4" fill="#d4483b"/>
+            </g>
+            <g class="chart-fade" data-chart="capex">
+              <rect x="170" y="58" width="100" height="20" rx="4" fill="rgba(212,72,59,0.12)"/>
+              <text x="220" y="72" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="8">Lines crossed Q2</text>
+            </g>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#4a9e8e"></div>Increasing capex</div>
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d4483b"></div>Decreasing capex</div>
+        </div>
+        <div class="chart-source">Source: The Conference Board CEO Confidence Survey</div>
+      </div>
+    </div>
+
+    <!-- Row 3: NFIB uncertainty trend -->
+    <div class="charts-row">
+      <div class="chart-box full-width reveal" id="chart-nfib">
+        <div class="chart-title">NFIB Small Business</div>
+        <div class="chart-headline">Uncertainty Never Really Left — It Just Changed Shape</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="30" x2="860" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="80" x2="860" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="130" x2="860" y2="130" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="50" y1="180" x2="860" y2="180" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="44" y="34" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">100</text>
+            <text x="44" y="84" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">90</text>
+            <text x="44" y="134" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">80</text>
+            <text x="44" y="184" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">70</text>
+            <text x="150" y="204" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Spring '25</text>
+            <text x="350" y="204" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Aug '25</text>
+            <text x="550" y="204" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Late '25</text>
+            <text x="750" y="204" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Jan '26</text>
+            <path d="M150,85 C250,50 280,42 350,45 C420,48 480,108 550,110 C620,112 680,78 750,75 L750,180 L150,180 Z" fill="url(#nfibGrad)" class="chart-fade" data-chart="nfib"/>
+            <path d="M150,85 C250,50 280,42 350,45 C420,48 480,108 550,110 C620,112 680,78 750,75" fill="none" stroke="#c4a35a" stroke-width="2.5" stroke-linecap="round" class="chart-line-animated" data-chart="nfib"/>
+            <g class="chart-fade" data-chart="nfib">
+              <circle cx="150" cy="85" r="4" fill="#c4a35a"/>
+              <circle cx="350" cy="45" r="6" fill="#c4a35a" stroke="#1a1a20" stroke-width="2"/>
+              <circle cx="550" cy="110" r="4" fill="#c4a35a"/>
+              <circle cx="750" cy="75" r="5" fill="#c4a35a" stroke="#1a1a20" stroke-width="2"/>
+            </g>
+            <g class="chart-fade" data-chart="nfib">
+              <line x1="350" y1="45" x2="350" y2="16" stroke="#c4a35a" stroke-width="1" opacity="0.5"/>
+              <rect x="296" y="2" width="108" height="18" rx="4" fill="rgba(196,163,90,0.15)"/>
+              <text x="350" y="14" text-anchor="middle" fill="#c4a35a" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500">97 — +8 pts jump</text>
+              <line x1="750" y1="75" x2="750" y2="48" stroke="#c4a35a" stroke-width="1" opacity="0.5"/>
+              <rect x="696" y="34" width="108" height="18" rx="4" fill="rgba(196,163,90,0.15)"/>
+              <text x="750" y="46" text-anchor="middle" fill="#c4a35a" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500">91 — +7 pts jump</text>
+            </g>
+            <defs>
+              <linearGradient id="nfibGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c4a35a" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#c4a35a" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="chart-source">Source: NFIB Small Business Uncertainty Index / Reuters</div>
+      </div>
+    </div>
+
+    <!-- Row 4: Cumulative drag waterfall -->
+    <div class="charts-row">
+      <div class="chart-box full-width reveal" id="chart-waterfall">
+        <div class="chart-title">Cumulative Impact</div>
+        <div class="chart-headline">Each Quarter Layered On More Drag</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+            <line x1="80" y1="60" x2="860" y2="60" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="74" y="64" text-anchor="end" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Baseline</text>
+            <!-- Waterfall bars -->
+            <rect x="110" y="60" width="100" height="50" rx="4" fill="#d4483b" opacity="0.7" class="chart-fade" data-chart="waterfall"/>
+            <line x1="210" y1="110" x2="270" y2="110" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,3" class="chart-fade" data-chart="waterfall"/>
+            <rect x="270" y="110" width="100" height="30" rx="4" fill="#e8734a" opacity="0.65" class="chart-fade" data-chart="waterfall"/>
+            <line x1="370" y1="140" x2="430" y2="140" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,3" class="chart-fade" data-chart="waterfall"/>
+            <rect x="430" y="140" width="100" height="20" rx="4" fill="#c4a35a" opacity="0.6" class="chart-fade" data-chart="waterfall"/>
+            <line x1="530" y1="160" x2="590" y2="160" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,3" class="chart-fade" data-chart="waterfall"/>
+            <rect x="590" y="145" width="100" height="15" rx="4" fill="#4a9e8e" opacity="0.5" class="chart-fade" data-chart="waterfall"/>
+            <line x1="690" y1="145" x2="750" y2="145" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,3" class="chart-fade" data-chart="waterfall"/>
+            <rect x="750" y="145" width="100" height="25" rx="4" fill="#d4483b" opacity="0.85" class="chart-fade" data-chart="waterfall"/>
+            <!-- Labels -->
+            <g class="chart-fade" data-chart="waterfall">
+              <text x="160" y="226" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">Q2 '25</text>
+              <text x="160" y="242" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Confidence crash</text>
+              <text x="320" y="226" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">Summer '25</text>
+              <text x="320" y="242" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Uncertainty diffuses</text>
+              <text x="480" y="226" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">Q4 '25</text>
+              <text x="480" y="242" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Holding pattern sets</text>
+              <text x="640" y="226" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">Q1 '26</text>
+              <text x="640" y="242" text-anchor="middle" fill="#4a9e8e" font-family="JetBrains Mono,monospace" font-size="8">Brief thaw</text>
+              <text x="800" y="226" text-anchor="middle" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="11">Mar '26</text>
+              <text x="800" y="242" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="8">Iran relapse</text>
+            </g>
+            <!-- In-bar annotations -->
+            <g class="chart-fade" data-chart="waterfall">
+              <text x="160" y="90" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="9">BRT -15, hiring -19</text>
+              <text x="160" y="103" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="9">82% say worse</text>
+              <text x="320" y="130" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="9">NFIB unc. +8</text>
+              <text x="480" y="155" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="8">3rd Q of net cuts</text>
+              <text x="640" y="149" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="8">Capex up 35%</text>
+              <text x="800" y="162" text-anchor="middle" fill="#e8e6e1" font-family="JetBrains Mono,monospace" font-size="8">PMI 51.4, jobs down</text>
+            </g>
+            <!-- Running drag line -->
+            <polyline points="160,110 320,140 480,160 640,145 800,170" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,3" class="chart-fade" data-chart="waterfall"/>
+            <g class="chart-fade" data-chart="waterfall">
+              <text x="850" y="175" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Net: still below baseline</text>
+            </g>
+          </svg>
+        </div>
+        <div class="chart-source">Sources: Business Roundtable, Conference Board, NFIB, S&amp;P Global / Reuters</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ TIMELINE ═══════════ -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>How Stuck Evolved</h2>
+      <p>Not a straight line: shock, hold, slight release, fresh relapse.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Spring 2025</div>
+        <div class="timeline-label">Policy Shock</div>
+        <div class="timeline-text">Trade volatility and tariffs made planning dangerous. The BRT CEO Economic Outlook Index fell 15 points to 69—well below its historic average of 83. Executives marked down hiring and capex in real terms, not just rhetoric. <a href="https://www.businessroundtable.org/media/ceo-economic-outlook-index/ceo-economic-outlook-index-q2-2025" target="_blank">BRT Q2 2025</a></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Summer 2025</div>
+        <div class="timeline-label">Diffuse Hesitation</div>
+        <div class="timeline-text">Optimism could coexist with higher uncertainty, especially among smaller firms. Sales might be fine while expansion decisions still felt risky. NFIB showed decent optimism and simultaneously reported uncertainty clouding core decisions. <a href="https://www.reuters.com/world/us/us-small-business-optimism-up-uncertainty-clouds-outlook-2025-08-12/" target="_blank">Reuters Aug 2025</a></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Late 2025</div>
+        <div class="timeline-label">Holding Pattern</div>
+        <div class="timeline-text">CEOs were no longer panicking, but they still weren't hiring with conviction. The BRT index improved to 80 but remained below historic average. Employment plans stayed soft even as sales and capex expectations improved slightly. <a href="https://www.businessroundtable.org/media/ceo-economic-outlook-index/ceo-economic-outlook-index-q4-2025" target="_blank">BRT Q4 2025</a></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Early 2026</div>
+        <div class="timeline-label">Conditional Optimism</div>
+        <div class="timeline-text">The first real sign that stuck might be loosening. 39% of CEOs said conditions were better, the share expecting capex increases rose to 35% from 22%, and concern about tariffs eased from ~40% to just over 20%. <a href="https://www.conference-board.org/topics/ceo-confidence/" target="_blank">Conference Board Q1 2026</a></div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">March 2026</div>
+        <div class="timeline-label">Macro Relapse</div>
+        <div class="timeline-text">War-driven oil shocks, renewed inflation pressure, and supply-chain disruption pushed firms back toward overhead cuts and caution. Business activity hit an 11-month low, private employment contracted, and the thaw proved fragile. <a href="https://www.reuters.com/business/us-business-activity-slips-11-month-low-march-amid-iran-war-sp-global-survey-2026-03-24/" target="_blank">Reuters Mar 2026</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="static-divider"><canvas class="static-canvas"></canvas></div>
+
+<!-- ═══════════ THE VOICES ═══════════ -->
+<section class="voices-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>The Voices of Stuck</h2>
+      <p>The numbers show the brake marks. The quotes show the wear on the driver.</p>
+    </div>
+
+    <div class="voices-grid">
+      <div class="voice-card featured reveal">
+        <div class="voice-quote">"We have seen pauses in capex and hiring amongst our client base."</div>
+        <div class="voice-name">Jane Fraser</div>
+        <div class="voice-role">CEO, Citigroup</div>
+        <div class="voice-context">Not theoretical hesitation—actual budget and headcount decisions stalling across Citi's corporate clients.</div>
+      </div>
+
+      <div class="voice-card reveal">
+        <div class="voice-quote">"We don't know yet."</div>
+        <div class="voice-name">Jamie Dimon</div>
+        <div class="voice-role">CEO, JPMorgan Chase · Sept 2025</div>
+        <div class="voice-context">Warning that tariffs, immigration, geopolitics, and fiscal policy had not fully unfolded. The voice of an executive class living in delayed consequence.</div>
+      </div>
+
+      <div class="voice-card reveal">
+        <div class="voice-quote">"There's genuine uncertainty about where things go from here."</div>
+        <div class="voice-name">Edward Rosenfeld</div>
+        <div class="voice-role">CEO, Steven Madden · Feb 2026</div>
+        <div class="voice-context">Steven Madden withheld its 2026 earnings forecast entirely. When companies stop giving guidance, stuck has moved from feeling to formal corporate posture.</div>
+      </div>
+
+      <div class="voice-card reveal">
+        <div class="voice-quote">Tariffs put aircraft deliveries in "limbo" and left customers "struggling" to forecast their businesses.</div>
+        <div class="voice-name">Larry Culp</div>
+        <div class="voice-role">CEO, GE Aerospace</div>
+        <div class="voice-context">GE estimated tariffs would cost more than $500 million in 2025. The biggest uncertainty for aerospace since COVID.</div>
+      </div>
+
+      <div class="voice-card reveal">
+        <div class="voice-quote">Consumers are "value-focused and thoughtful about big-ticket purchases."</div>
+        <div class="voice-name">Corie Barry</div>
+        <div class="voice-role">CEO, Best Buy</div>
+        <div class="voice-context">Spending continues, but with caution. Best Buy noted 30–35% of its goods came from China. The split-screen year: business survives, but with drag.</div>
+      </div>
+
+      <div class="voice-card reveal">
+        <div class="voice-quote">"I just hope small businesses can hold on that long."</div>
+        <div class="voice-name">Small business owner</div>
+        <div class="voice-role">Fabricated metal products · NFIB Survey</div>
+        <div class="voice-context">Costs were rising, improvement was expected in 6–12 months, but survival was the immediate question. That is a holding pattern biting into action.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ THE TOIL ═══════════ -->
+<section class="toil-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>The Toil of Stuck</h2>
+      <p>Not inactivity. The managerial labor of running a business when every decision had to be re-run through a fog machine.</p>
+    </div>
+
+    <div class="toil-grid">
+      <!-- Leadership stress donut -->
+      <div class="toil-card reveal" id="toil-stress">
+        <div class="chart-title">DDI Global Leadership Forecast 2025</div>
+        <div class="chart-headline">Leadership Under Strain</div>
+        <div class="toil-donut-wrap">
+          <div>
+            <div class="toil-donut">
+              <svg viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="62" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14"/>
+                <circle cx="80" cy="80" r="62" fill="none" stroke="#d4483b" stroke-width="14"
+                        stroke-dasharray="389.56" stroke-dashoffset="389.56" stroke-linecap="round"
+                        transform="rotate(-90 80 80)" class="donut-ring" data-target="113.07" id="donut-stress"/>
+              </svg>
+              <div class="toil-donut-label">
+                <div class="toil-donut-num" id="donut-stress-num">0%</div>
+                <div class="toil-donut-sub">of leaders</div>
+              </div>
+            </div>
+            <div class="toil-donut-caption">reported increased stress levels over the year</div>
+          </div>
+          <div>
+            <div class="toil-donut">
+              <svg viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="62" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14"/>
+                <circle cx="80" cy="80" r="62" fill="none" stroke="#e8734a" stroke-width="14"
+                        stroke-dasharray="389.56" stroke-dashoffset="389.56" stroke-linecap="round"
+                        transform="rotate(-90 80 80)" class="donut-ring" data-target="233.74" id="donut-quit"/>
+              </svg>
+              <div class="toil-donut-label">
+                <div class="toil-donut-num" id="donut-quit-num">0%</div>
+                <div class="toil-donut-sub">of those</div>
+              </div>
+            </div>
+            <div class="toil-donut-caption">considered leaving leadership to protect their wellbeing</div>
+          </div>
+        </div>
+        <div class="chart-source" style="text-align:center; margin-top:24px;">Source: DDI Global Leadership Forecast 2025</div>
+      </div>
+
+      <!-- CEO top worry -->
+      <div class="toil-card reveal" id="toil-worry">
+        <div class="chart-title">Conference Board · C-Suite Outlook 2026</div>
+        <div class="chart-headline">Top CEO Worry Entering 2026</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+            <!-- Horizontal bar chart: Uncertainty 43%, Global avg 29%, Talent 28%, Inflation 25% -->
+            <!-- Bar backgrounds -->
+            <rect x="140" y="30" width="240" height="36" rx="6" fill="rgba(255,255,255,0.03)"/>
+            <rect x="140" y="82" width="240" height="36" rx="6" fill="rgba(255,255,255,0.03)"/>
+            <rect x="140" y="134" width="240" height="36" rx="6" fill="rgba(255,255,255,0.03)"/>
+            <rect x="140" y="186" width="240" height="36" rx="6" fill="rgba(255,255,255,0.03)"/>
+            <!-- Bars -->
+            <rect x="140" y="30" width="0" height="36" rx="6" fill="#d4483b" opacity="0.85" class="h-bar" data-width="240" id="hbar1"/>
+            <rect x="140" y="82" width="0" height="36" rx="6" fill="#5a5850" opacity="0.6" class="h-bar" data-width="162" id="hbar2"/>
+            <rect x="140" y="134" width="0" height="36" rx="6" fill="#5a5850" opacity="0.4" class="h-bar" data-width="156" id="hbar3"/>
+            <rect x="140" y="186" width="0" height="36" rx="6" fill="#5a5850" opacity="0.3" class="h-bar" data-width="140" id="hbar4"/>
+            <!-- Labels -->
+            <text x="132" y="53" text-anchor="end" fill="#e8e6e1" font-family="DM Sans,sans-serif" font-size="13" font-weight="400">Uncertainty</text>
+            <text x="132" y="105" text-anchor="end" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="13">Global avg</text>
+            <text x="132" y="157" text-anchor="end" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="13">Talent</text>
+            <text x="132" y="209" text-anchor="end" fill="#8a8880" font-family="DM Sans,sans-serif" font-size="13">Inflation</text>
+            <!-- Values -->
+            <g class="chart-fade" data-chart="worry">
+              <text x="388" y="53" text-anchor="end" fill="#d4483b" font-family="Instrument Serif,serif" font-size="22">43%</text>
+              <text x="310" y="105" text-anchor="end" fill="#8a8880" font-family="Instrument Serif,serif" font-size="18">29%</text>
+              <text x="304" y="157" text-anchor="end" fill="#8a8880" font-family="Instrument Serif,serif" font-size="18">28%</text>
+              <text x="288" y="209" text-anchor="end" fill="#8a8880" font-family="Instrument Serif,serif" font-size="18">25%</text>
+            </g>
+            <!-- Note -->
+            <text x="200" y="245" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">% of U.S. CEOs ranking as top economic threat</text>
+          </svg>
+        </div>
+        <div class="chart-source" style="text-align:center;">Source: The Conference Board C-Suite Outlook 2026</div>
+      </div>
+    </div>
+
+    <!-- Labor market full-width -->
+    <div class="toil-grid">
+      <div class="toil-card full-width reveal" id="toil-labor">
+        <div class="chart-title">The Labor Market</div>
+        <div class="chart-headline">Low-Hire, Low-Fire: Not Collapse, Just Suspended Commitment</div>
+        <div class="chart-canvas-wrap">
+          <svg viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg">
+            <!-- This is a stylized horizontal timeline bar showing the job market state -->
+            <!-- Background track -->
+            <rect x="60" y="80" width="780" height="48" rx="24" fill="rgba(255,255,255,0.03)"/>
+            <!-- Segments showing different phases -->
+            <!-- Phase 1: Spring 2025 - normal hiring (green-ish) -->
+            <rect x="60" y="80" width="150" height="48" rx="24" fill="#4a9e8e" opacity="0.25" class="chart-fade" data-chart="labor"/>
+            <!-- Phase 2: Summer-Fall - flat (amber) -->
+            <rect x="210" y="80" width="250" height="48" fill="#c4a35a" opacity="0.2" class="chart-fade" data-chart="labor"/>
+            <!-- Phase 3: Late 2025 - stall (red-ish) -->
+            <rect x="460" y="80" width="200" height="48" fill="#d4483b" opacity="0.2" class="chart-fade" data-chart="labor"/>
+            <!-- Phase 4: Early 2026 - flat/contract (deep red) -->
+            <rect x="660" y="80" width="180" height="48" rx="0 24 24 0" fill="#d4483b" opacity="0.35" class="chart-fade" data-chart="labor"/>
+            <!-- Right endcap -->
+            <rect x="816" y="80" width="24" height="48" rx="0 24 24 0" fill="#d4483b" opacity="0.35" class="chart-fade" data-chart="labor"/>
+            <!-- Phase labels -->
+            <g class="chart-fade" data-chart="labor">
+              <text x="135" y="72" text-anchor="middle" fill="#4a9e8e" font-family="JetBrains Mono,monospace" font-size="9">Hiring</text>
+              <text x="335" y="72" text-anchor="middle" fill="#c4a35a" font-family="JetBrains Mono,monospace" font-size="9">Flat / Cautious</text>
+              <text x="560" y="72" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="9">Stalled</text>
+              <text x="750" y="72" text-anchor="middle" fill="#d4483b" font-family="JetBrains Mono,monospace" font-size="9">Contracting</text>
+            </g>
+            <!-- Timeline markers -->
+            <g class="chart-fade" data-chart="labor">
+              <line x1="210" y1="80" x2="210" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <line x1="460" y1="80" x2="460" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <line x1="660" y1="80" x2="660" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            </g>
+            <!-- Bottom labels -->
+            <g class="chart-fade" data-chart="labor">
+              <text x="135" y="156" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Spring '25</text>
+              <text x="335" y="156" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Summer – Fall '25</text>
+              <text x="560" y="156" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Late '25</text>
+              <text x="750" y="156" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="9">Early '26</text>
+            </g>
+            <!-- Key stat callouts -->
+            <g class="chart-fade" data-chart="labor">
+              <rect x="280" y="175" width="160" height="42" rx="8" fill="rgba(196,163,90,0.08)" stroke="rgba(196,163,90,0.15)" stroke-width="1"/>
+              <text x="360" y="193" text-anchor="middle" fill="#c4a35a" font-family="Instrument Serif,serif" font-size="16">18K jobs/mo</text>
+              <text x="360" y="210" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">3-mo avg private payrolls</text>
+
+              <rect x="590" y="175" width="200" height="42" rx="8" fill="rgba(212,72,59,0.08)" stroke="rgba(212,72,59,0.15)" stroke-width="1"/>
+              <text x="690" y="193" text-anchor="middle" fill="#d4483b" font-family="Instrument Serif,serif" font-size="16">PMI jobs: 49.7</text>
+              <text x="690" y="210" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">First contraction in 12+ months</text>
+            </g>
+            <!-- Powell quote -->
+            <g class="chart-fade" data-chart="labor">
+              <text x="450" y="236" text-anchor="middle" fill="#8a8880" font-family="Instrument Serif,serif" font-size="13" font-style="italic">"A zero-employment growth equilibrium" — Jerome Powell</text>
+            </g>
+          </svg>
+        </div>
+        <div class="chart-source" style="text-align:center;">Sources: Reuters, S&amp;P Global Flash PMI, Federal Reserve</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COPING ═══════════ -->
+<section class="coping-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>How Business Learned to Live in Stuck</h2>
+      <p>They did not cope by becoming fearless. They coped by becoming narrower, harder, and more selective.</p>
+    </div>
+    <div class="coping-grid">
+      <div class="coping-card reveal">
+        <div class="coping-num">01</div>
+        <div class="coping-title">Selective Capex</div>
+        <div class="coping-text">Even in the cautious period, firms still spent on what felt unavoidable. Capex held up better than hiring, especially when tied to productivity or infrastructure.</div>
+      </div>
+      <div class="coping-card reveal">
+        <div class="coping-num">02</div>
+        <div class="coping-title">Soft Labor Discipline</div>
+        <div class="coping-text">Instead of dramatic layoffs, many firms used slower hiring, flat headcount, and targeted cuts. By Q1 2026, 41% of CEOs expected no workforce change.</div>
+      </div>
+      <div class="coping-card reveal">
+        <div class="coping-num">03</div>
+        <div class="coping-title">Price Pass-Through</div>
+        <div class="coping-text">When uncertainty arrived through costs, firms defended margins by raising prices. If you can't confidently grow, you protect the line you already have.</div>
+      </div>
+      <div class="coping-card reveal">
+        <div class="coping-num">04</div>
+        <div class="coping-title">Balance-Sheet Caution</div>
+        <div class="coping-text">Private-credit funds capped withdrawals, banks tightened lending. When uncertainty lingers, finance stops pretending liquidity is infinite.</div>
+      </div>
+      <div class="coping-card full-width reveal">
+        <div class="coping-num">05</div>
+        <div class="coping-title">Concentration into AI</div>
+        <div class="coping-text">Executives kept funding AI and automation because it offered both a growth story and a cost story. But that itself created a split-screen economy: more money into systems, less into broad labor expansion. The "safe" strategic narrative absorbed the conviction that everything else lost.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="static-divider"><canvas class="static-canvas"></canvas></div>
+
+<!-- ═══════════ EVIDENCE STACK ═══════════ -->
+<section class="stack-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>The Proof Stack</h2>
+      <p>Not a new chapter so much as a hard ballast point: six data points, enough to prove the case.</p>
+    </div>
+    <div class="stack-list">
+      <div class="stack-item reveal">
+        <div class="stack-num">1</div>
+        <div class="stack-content">
+          <h3>BRT Q2 2025</h3>
+          <p>Hiring plans fell 19 points, capital-investment plans fell 15, uncertainty explicitly blamed for the decline.</p>
+          <a class="source-link" href="https://www.businessroundtable.org/media/ceo-economic-outlook-index/ceo-economic-outlook-index-q2-2025" target="_blank">Business Roundtable →</a>
+        </div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="stack-num">2</div>
+        <div class="stack-content">
+          <h3>Conference Board Q2 2025</h3>
+          <p>82% said conditions worsened; downward revisions to capital spending doubled from the prior quarter.</p>
+          <a class="source-link" href="https://www.prnewswire.com/news-releases/ceo-confidence-declined-significantly-in-q2-2025-302467099.html" target="_blank">PR Newswire →</a>
+        </div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="stack-num">3</div>
+        <div class="stack-content">
+          <h3>NFIB August 2025</h3>
+          <p>Uncertainty index jumped 8 points; NFIB said it was clouding decisions about hiring, pricing, and plant and equipment investment.</p>
+          <a class="source-link" href="https://www.reuters.com/world/us/us-small-business-optimism-up-uncertainty-clouds-outlook-2025-08-12/" target="_blank">Reuters →</a>
+        </div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="stack-num">4</div>
+        <div class="stack-content">
+          <h3>BRT Q4 2025</h3>
+          <p>Third straight quarter with more CEOs planning employment cuts than increases—the lowest three-quarter average since the Great Recession.</p>
+          <a class="source-link" href="https://www.businessroundtable.org/media/ceo-economic-outlook-index/ceo-economic-outlook-index-q4-2025" target="_blank">Business Roundtable →</a>
+        </div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="stack-num">5</div>
+        <div class="stack-content">
+          <h3>NFIB January 2026</h3>
+          <p>Uncertainty jumped 7 points, driven by doubt about whether it was a good time to expand—the operating-system level of stuck.</p>
+          <a class="source-link" href="https://www.nfib.com/news/press-release/new-nfib-survey-small-business-optimism-remains-above-52-year-average/" target="_blank">NFIB →</a>
+        </div>
+      </div>
+      <div class="stack-item reveal">
+        <div class="stack-num">6</div>
+        <div class="stack-content">
+          <h3>March 2026 PMI</h3>
+          <p>Business activity hit an 11-month low, private employment contracted for the first time in over a year, firms cut overhead amid uncertainty.</p>
+          <a class="source-link" href="https://www.reuters.com/business/us-business-activity-slips-11-month-low-march-amid-iran-war-sp-global-survey-2026-03-24/" target="_blank">Reuters →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONSUMER STUCK + GETTING UNSTUCK (COHESIVE) ═══════════ -->
+<section class="consumer-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>The Unevenness of Consumer Stuck</h2>
+      <p>The executive version of stuck matters, but this is where the condition becomes lived economics. For consumers, stuck does not arrive as a theory. It arrives as a weekly cost, a delayed decision, and a smaller margin for error.</p>
+    </div>
+
+    <div class="section-transition reveal">The pattern only becomes fully real when it leaves management language and shows up in the household budget, the financing decision, and the moment of purchase.</div>
+
+    <div class="consumer-spectrum reveal">
+      <div class="consumer-bar-track"></div>
+      <div class="consumer-cols">
+        <div class="consumer-col">
+          <div class="consumer-col-marker" style="background: #d4483b;"></div>
+          <div class="consumer-col-label">The Pressured</div>
+          <div class="consumer-col-text">Financed households, lower-income buyers, and risk-sensitive consumers are being pinned down by fuel costs, borrowing costs, and a labor market that feels stable without feeling expansive. They pull back first and hardest.</div>
+        </div>
+        <div class="consumer-col">
+          <div class="consumer-col-marker" style="background: #c4a35a;"></div>
+          <div class="consumer-col-label">The Cautious Middle</div>
+          <div class="consumer-col-text">The broad middle is still moving, but more carefully than before. They still spend, but with longer consideration, sharper comparison, and less tolerance for ambiguity. Every big-ticket purchase has to pass a higher internal bar.</div>
+        </div>
+        <div class="consumer-col">
+          <div class="consumer-col-marker" style="background: #4a9e8e;"></div>
+          <div class="consumer-col-label">The Insulated</div>
+          <div class="consumer-col-text">Consumers with higher income, cash buffers, or asset wealth retain more room to act. They are still spending, traveling, and making larger discretionary choices, even as pressure builds around them.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="consumer-context reveal">
+      <p>Rising gas prices are already hurting <strong>55% of Americans</strong>. Mortgage rates have climbed to a <strong>six-month high</strong>. The labor market has slid into a "low-hire, low-fire" state. Those pressures do not land equally: they hit financed and lower-income households hardest, while consumers with more income or cash buffers retain more room to move.</p>
+      <p style="margin-top: 12px; font-size: 0.9rem; color: #6b7280; line-height: 1.5;">Signals: Reuters/Ipsos on gas-price pressure and household finances; Reuters on mortgage rates and applications; Reuters on the "low-hire, low-fire" labor market; Reuters on the widening gap between affluent and budget-conscious consumers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="playbook-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>Getting Unstuck</h2>
+      <p>If this is how caution is being absorbed, the task is not generic growth language. It is to find where motion is still possible and design for that reality. Each consumer segment requires a different strategic response. Here's how to move.</p>
+    </div>
+
+    <div class="section-transition reveal">That is why the next question is strategic, not merely descriptive: if consumers are living through different forms of stuck, where should brands meet them, reassure them, and move first?</div>
+
+    <div class="playbook-steps">
+
+      <div class="playbook-step reveal">
+        <div class="playbook-step-num"><div class="playbook-num-circle">1</div></div>
+        <div class="playbook-step-body">
+          <div class="playbook-step-title">Map which stuck you're facing</div>
+          <div class="playbook-step-text">The <span class="seg-tag seg-pressured">Pressured</span> show up as abandoned carts, longer sales cycles, and price objections. The <span class="seg-tag seg-cautious">Cautious Middle</span> show up as comparison shopping and deferred big-ticket decisions. The <span class="seg-tag seg-insulated">Insulated</span> are still moving — but even they want more proof before committing. Diagnose which pattern dominates your category before writing a brief.</div>
+        </div>
+        <div class="playbook-step-aside">
+          <div class="playbook-aside-content">The evidence is already in the funnel. Search terms, abandoned carts, sales objections — they tell you which stuck you're selling into.</div>
+        </div>
+      </div>
+
+      <div class="playbook-step reveal">
+        <div class="playbook-step-num"><div class="playbook-num-circle">2</div></div>
+        <div class="playbook-step-body">
+          <div class="playbook-step-title">Make the offer easier to justify</div>
+          <div class="playbook-step-text">For the <span class="seg-tag seg-pressured">Pressured</span>, that means lower entry points and explicit value. For the <span class="seg-tag seg-cautious">Cautious Middle</span>, it means showing proof earlier and stripping ambiguity. For the <span class="seg-tag seg-insulated">Insulated</span>, it means reframing premium as durability — not aspiration. The old brief — "drive demand" — is too blunt. The better brief: what makes choosing us feel safer, smarter, or more necessary right now?</div>
+        </div>
+        <div class="playbook-step-aside">
+          <div class="playbook-aside-content">Tighten the value exchange. Reduce the interpretive labor. The customer's bar is higher — clear it for them.</div>
+        </div>
+      </div>
+
+      <div class="playbook-step reveal">
+        <div class="playbook-step-num"><div class="playbook-num-circle">3</div></div>
+        <div class="playbook-step-body">
+          <div class="playbook-step-title">Find the warm spots in the split</div>
+          <div class="playbook-step-text">A stuck market is not evenly frozen — and the consumer split proves it. The <span class="seg-tag seg-insulated">Insulated</span> still have active intent. Parts of the <span class="seg-tag seg-cautious">Cautious Middle</span> still have to act — need-driven purchases, time-sensitive decisions, categories where delay costs more than commitment. Concentrate effort where movement is still possible rather than spraying reassurance at a frozen whole.</div>
+        </div>
+        <div class="playbook-step-aside">
+          <div class="playbook-aside-content">Segment by need state and risk tolerance — not demographics. Which buyers still have to act? Which channels carry intent?</div>
+        </div>
+      </div>
+
+      <div class="playbook-step reveal">
+        <div class="playbook-step-num"><div class="playbook-num-circle">4</div></div>
+        <div class="playbook-step-body">
+          <div class="playbook-step-title">Change the shape, not just the copy</div>
+          <div class="playbook-step-text">The <span class="seg-tag seg-pressured">Pressured</span> need a different product shape — simpler offers, clearer entry points, financing that acknowledges the squeeze. The <span class="seg-tag seg-cautious">Cautious Middle</span> need less choice complexity and more reliability signals. If customers are more cautious, the company may need a different proposition, not a different tagline.</div>
+        </div>
+        <div class="playbook-step-aside">
+          <div class="playbook-aside-content">The test: does the strategy reduce hesitation at the point of choice?</div>
+        </div>
+      </div>
+
+      <div class="playbook-step reveal">
+        <div class="playbook-step-num"><div class="playbook-num-circle">5</div></div>
+        <div class="playbook-step-body">
+          <div class="playbook-step-title">Arm the marketer for the internal fight</div>
+          <div class="playbook-step-text">Show which consumer segment still has motion. Show what the <span class="seg-tag seg-pressured">Pressured</span> need that the company isn't offering. Show where the <span class="seg-tag seg-insulated">Insulated</span> are still spending. Give the marketer something portable for the exec meeting and concrete for the operating team. Not a transformation fantasy. A sequence.</div>
+        </div>
+        <div class="playbook-step-aside">
+          <div class="playbook-aside-content">One segment to prioritize. One offer to simplify. One proof point to build. One message to retire.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="playbook-closing reveal">
+      <p>Respond to the customer you have now — not the one you wish still existed.</p>
+    </div>
+  </div>
+</section>
+
+<div class="static-divider"><canvas class="static-canvas"></canvas></div>
+
+<!-- ═══════════ SCENARIOS ═══════════ -->
+<section class="scenarios-section">
+  <div class="container-wide">
+    <div class="section-header reveal">
+      <h2>Where Stuck Goes</h2>
+      <p>Three live scenarios. Not fantasies, but patterns already visible in surveys, CEO language, and macro data.</p>
+    </div>
+
+    <div class="scenarios-grid">
+
+      <!-- Scenario 1: Selective Thaw -->
+      <div class="scenario-card reveal">
+        <div class="scenario-visual" style="background: linear-gradient(135deg, rgba(74,158,142,0.08) 0%, rgba(74,158,142,0.02) 100%);">
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Radiating lines from center - thaw metaphor -->
+            <circle cx="110" cy="110" r="90" fill="none" stroke="rgba(74,158,142,0.08)" stroke-width="1"/>
+            <circle cx="110" cy="110" r="60" fill="none" stroke="rgba(74,158,142,0.12)" stroke-width="1"/>
+            <circle cx="110" cy="110" r="30" fill="none" stroke="rgba(74,158,142,0.18)" stroke-width="1"/>
+            <!-- Selective beams - only some directions lit -->
+            <line x1="110" y1="110" x2="110" y2="20" stroke="#4a9e8e" stroke-width="2.5" opacity="0.7" stroke-linecap="round"/>
+            <line x1="110" y1="110" x2="180" y2="60" stroke="#4a9e8e" stroke-width="2.5" opacity="0.5" stroke-linecap="round"/>
+            <line x1="110" y1="110" x2="190" y2="130" stroke="#4a9e8e" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <!-- Dim/stuck directions -->
+            <line x1="110" y1="110" x2="50" y2="160" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="110" y1="110" x2="60" y2="70" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="110" y1="110" x2="130" y2="195" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Center dot -->
+            <circle cx="110" cy="110" r="6" fill="#4a9e8e" opacity="0.8"/>
+            <circle cx="110" cy="110" r="12" fill="none" stroke="#4a9e8e" stroke-width="1" opacity="0.3"/>
+            <!-- Lit endpoint dots -->
+            <circle cx="110" cy="20" r="4" fill="#4a9e8e" opacity="0.7"/>
+            <circle cx="180" cy="60" r="3" fill="#4a9e8e" opacity="0.5"/>
+            <circle cx="190" cy="130" r="3" fill="#4a9e8e" opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-num" style="color:#4a9e8e;">Scenario 01</div>
+          <div class="scenario-name">Selective Thaw</div>
+          <div class="scenario-tag" style="background:rgba(74,158,142,0.1); color:#4a9e8e;">Optimistic</div>
+          <div class="scenario-text">Stuck doesn't fully end, but it loosens in chosen areas. Big firms keep investing in AI, tech, industrial capacity, and selected M&A—while staying cautious elsewhere. The economy is not healed. It is triaged. Business moves, but only on the lit parts of the map.</div>
+          <div class="scenario-evidence">Barclays raised its 2026 S&P 500 target to 7,650 and lifted EPS estimates to $321. Strategists expect ~14% Q1 2026 earnings growth. Conference Board CEOs remain worried but alert to opportunity.</div>
+        </div>
+      </div>
+
+      <!-- Scenario 2: Permanent Contingency -->
+      <div class="scenario-card reveal">
+        <div class="scenario-visual" style="background: linear-gradient(135deg, rgba(212,72,59,0.06) 0%, rgba(232,115,74,0.03) 100%);">
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Treadmill / loop metaphor -->
+            <ellipse cx="110" cy="110" rx="80" ry="40" fill="none" stroke="#d4483b" stroke-width="1.5" opacity="0.25" stroke-dasharray="8,6"/>
+            <ellipse cx="110" cy="110" rx="60" ry="30" fill="none" stroke="#d4483b" stroke-width="2" opacity="0.35" stroke-dasharray="6,4"/>
+            <ellipse cx="110" cy="110" rx="40" ry="20" fill="none" stroke="#d4483b" stroke-width="2.5" opacity="0.5" stroke-dasharray="4,3"/>
+            <!-- Arrows suggesting endless loop -->
+            <path d="M150,95 L158,90 L152,100" fill="none" stroke="#d4483b" stroke-width="1.5" opacity="0.5"/>
+            <path d="M70,125 L62,130 L68,120" fill="none" stroke="#d4483b" stroke-width="1.5" opacity="0.5"/>
+            <!-- Pressure lines radiating inward -->
+            <line x1="30" y1="40" x2="55" y2="70" stroke="#e8734a" stroke-width="1" opacity="0.2"/>
+            <line x1="190" y1="40" x2="165" y2="70" stroke="#e8734a" stroke-width="1" opacity="0.2"/>
+            <line x1="30" y1="180" x2="55" y2="150" stroke="#e8734a" stroke-width="1" opacity="0.2"/>
+            <line x1="190" y1="180" x2="165" y2="150" stroke="#e8734a" stroke-width="1" opacity="0.2"/>
+            <!-- Center marker -->
+            <circle cx="110" cy="110" r="5" fill="#d4483b" opacity="0.6"/>
+            <circle cx="110" cy="110" r="10" fill="none" stroke="#d4483b" stroke-width="1" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-num" style="color:#d4483b;">Scenario 02</div>
+          <div class="scenario-name">Permanent Contingency</div>
+          <div class="scenario-tag" style="background:rgba(212,72,59,0.1); color:#d4483b;">Most Plausible</div>
+          <div class="scenario-text">Stuck becomes the management style itself. More reversibility, more liquidity worship, more contingency planning. The culture of decision-making changes. "Stuck" stops being a phase and becomes a regime. Normal management turns into a treadmill with no off-ramp.</div>
+          <div class="scenario-evidence">PMI fell to 51.4. Private employment contracted at 49.7. Private payrolls averaged only 18K/month. 43% of U.S. CEOs rank uncertainty as their top threat. 40% of stressed leaders considered leaving their roles.</div>
+        </div>
+      </div>
+
+      <!-- Scenario 3: Split-Screen Business -->
+      <div class="scenario-card reveal">
+        <div class="scenario-visual" style="background: linear-gradient(135deg, rgba(196,163,90,0.06) 0%, rgba(196,163,90,0.02) 100%);">
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Split screen metaphor: top half rising, bottom half flat/sinking -->
+            <!-- Dividing line -->
+            <line x1="20" y1="110" x2="200" y2="110" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <!-- Top: rising bars (big firms, markets) -->
+            <rect x="40" y="50" width="24" height="60" rx="4" fill="#4a9e8e" opacity="0.5"/>
+            <rect x="72" y="38" width="24" height="72" rx="4" fill="#4a9e8e" opacity="0.6"/>
+            <rect x="104" y="28" width="24" height="82" rx="4" fill="#4a9e8e" opacity="0.7"/>
+            <rect x="136" y="20" width="24" height="90" rx="4" fill="#4a9e8e" opacity="0.8"/>
+            <rect x="168" y="14" width="24" height="96" rx="4" fill="#4a9e8e" opacity="0.9"/>
+            <!-- Bottom: flat/declining bars (small firms) -->
+            <rect x="40" y="120" width="24" height="50" rx="4" fill="#d4483b" opacity="0.3"/>
+            <rect x="72" y="120" width="24" height="48" rx="4" fill="#d4483b" opacity="0.3"/>
+            <rect x="104" y="120" width="24" height="44" rx="4" fill="#d4483b" opacity="0.25"/>
+            <rect x="136" y="120" width="24" height="40" rx="4" fill="#d4483b" opacity="0.2"/>
+            <rect x="168" y="120" width="24" height="36" rx="4" fill="#d4483b" opacity="0.15"/>
+            <!-- Labels -->
+            <text x="110" y="198" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Giants get optionality</text>
+            <text x="110" y="210" text-anchor="middle" fill="#5a5850" font-family="JetBrains Mono,monospace" font-size="8">Everyone else gets weather</text>
+          </svg>
+        </div>
+        <div class="scenario-body">
+          <div class="scenario-num" style="color:#c4a35a;">Scenario 03</div>
+          <div class="scenario-name">Split-Screen Business</div>
+          <div class="scenario-tag" style="background:rgba(196,163,90,0.1); color:#c4a35a;">Sharpest</div>
+          <div class="scenario-text">The biggest firms and the stock market move on while the rest of business stays pinned. Large firms with pricing power, AI leverage, and balance-sheet strength keep going. Smaller firms, weaker sectors, and labor-intensive operators remain trapped. A two-speed economy.</div>
+          <div class="scenario-evidence">HSBC overweight U.S. stocks. Barclays turning more bullish on earnings resilience. Meanwhile, OECD says the Iran war erased a hoped-for growth upgrade and lifted inflation forecasts. Investors dialed back hopes for Fed easing.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scenario-closing reveal">
+      <div class="scenario-closing-line">The danger is not simply that business stays stuck. It is that different parts of business begin living in different futures at the same time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing">
+  <blockquote class="reveal">
+    A selective thaw for the strong.<br>
+    Permanent contingency for the cautious.<br>
+    A split-screen economy for everyone else.
+  </blockquote>
+  <div class="closing-note reveal">The question now is not whether stuck exists, but who learns to move inside it first.</div>
+  <div class="closing-note reveal">The Year of Stuck — Spring 2025 to Spring 2026</div>
+</section>
+
+<footer>
+  <p>Sources: <a href="https://www.businessroundtable.org" target="_blank">Business Roundtable</a> · <a href="https://www.conference-board.org" target="_blank">The Conference Board</a> · <a href="https://www.nfib.com" target="_blank">NFIB</a> · <a href="https://www.reuters.com" target="_blank">Reuters</a></p>
+</footer>
+
+<script>
+// ── Chart animation triggers by chart ID mapping ──
+const chartMap = {
+  'chart-convergence': 'convergence',
+  'chart-shift': 'shift',
+  'chart-capex': 'capex',
+  'chart-nfib': 'nfib',
+  'chart-waterfall': 'waterfall',
+  'toil-stress': 'stress',
+  'toil-worry': 'worry',
+  'toil-labor': 'labor'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    const id = entry.target.id;
+    const chartKey = chartMap[id];
+    if (chartKey) {
+      setTimeout(() => triggerChart(chartKey), 200);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function triggerChart(key) {
+  if (key === 'stress') {
+    animateDonuts();
+    return;
+  }
+  if (key === 'worry') {
+    animateHBars();
+    document.querySelectorAll(`.chart-fade[data-chart="worry"]`).forEach(el => el.classList.add('drawn'));
+    return;
+  }
+  // Animate lines
+  document.querySelectorAll(`.chart-line-animated[data-chart="${key}"]`).forEach(el => el.classList.add('drawn'));
+  // Animate bars
+  document.querySelectorAll(`rect.chart-bar-animated[data-chart="${key}"]`).forEach(el => el.classList.add('drawn'));
+  // Animate fades
+  document.querySelectorAll(`.chart-fade[data-chart="${key}"]`).forEach(el => el.classList.add('drawn'));
+}
+
+function animateDonuts() {
+  // Stress donut: 71% -> offset = 389.56 - (389.56 * 0.71) = 113.07
+  const stressRing = document.getElementById('donut-stress');
+  const stressNum = document.getElementById('donut-stress-num');
+  stressRing.style.strokeDashoffset = 389.56 - (389.56 * 0.71);
+  animateNum(stressNum, 71, '%');
+
+  // Quit donut: 40% -> offset = 389.56 - (389.56 * 0.40) = 233.74
+  const quitRing = document.getElementById('donut-quit');
+  const quitNum = document.getElementById('donut-quit-num');
+  quitRing.style.strokeDashoffset = 389.56 - (389.56 * 0.40);
+  animateNum(quitNum, 40, '%');
+}
+
+function animateHBars() {
+  ['hbar1','hbar2','hbar3','hbar4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    const w = el.getAttribute('data-width');
+    setTimeout(() => {
+      el.style.transition = 'width 1s cubic-bezier(0.22,1,0.36,1)';
+      el.setAttribute('width', w);
+    }, i * 150);
+  });
+}
+
+function animateNum(el, target, suffix) {
+  let start = null;
+  function tick(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / 1500, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ── PARTICLE FIELD (hero) ──
+(function() {
+  const canvas = document.getElementById('particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+  const COUNT = 80;
+
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+
+  function init() {
+    resize();
+    particles = [];
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.1,
+        r: Math.random() * 1.5 + 0.5,
+        o: Math.random() * 0.3 + 0.05
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(212, 72, 59, ${p.o})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  init();
+  draw();
+  window.addEventListener('resize', resize);
+})();
+
+// ── STATIC INTERFERENCE DIVIDERS ──
+(function() {
+  const canvases = document.querySelectorAll('.static-canvas');
+  canvases.forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = canvas.offsetWidth || 1200;
+    const h = canvas.height = 32;
+
+    // Draw horizontal scan lines with noise
+    for (let y = 0; y < h; y++) {
+      if (Math.random() > 0.4) continue; // skip most lines
+      const lineAlpha = Math.random() * 0.15 + 0.02;
+      const offset = (Math.random() - 0.5) * 4; // slight horizontal jitter
+      ctx.beginPath();
+      ctx.moveTo(offset, y + 0.5);
+      ctx.lineTo(w + offset, y + 0.5);
+      ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
+      ctx.lineWidth = Math.random() > 0.8? 2: 1;
+      ctx.stroke();
+    }
+
+    // Scattered noise pixels
+    for (let i = 0; i < 300; i++) {
+      const x = Math.random() * w;
+      const y2 = Math.random() * h;
+      const size = Math.random() * 2 + 0.5;
+      const alpha = Math.random() * 0.1 + 0.02;
+      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+      ctx.fillRect(x, y2, size, 1);
+    }
+
+    // One or two brighter glitch bands
+    const bandCount = Math.random() > 0.5? 2: 1;
+    for (let b = 0; b < bandCount; b++) {
+      const by = Math.random() * h;
+      const bh = Math.random() * 3 + 1;
+      const bw = Math.random() * w * 0.6 + w * 0.1;
+      const bx = Math.random() * (w - bw);
+      ctx.fillStyle = `rgba(212, 72, 59, ${Math.random() * 0.06 + 0.02})`;
+      ctx.fillRect(bx, by, bw, bh);
+    }
+  });
+})();
+</script>
+</body>
+</html>
